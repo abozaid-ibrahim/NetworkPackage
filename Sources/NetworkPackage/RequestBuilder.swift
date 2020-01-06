@@ -12,9 +12,9 @@ public protocol RequestBuilder {
     var baseURL: String { get }
 
     var method: HttpMethod { get }
-
+    var path: String { get }
     var parameters: [String: Any] { get }
-    var task: URLRequest { get }
+    var task: URLRequest? { get }
 }
 
 public enum HttpMethod: String {
@@ -27,7 +27,7 @@ extension RequestBuilder {
     }
 
     var endpoint: URL {
-        return URL(string: "\(baseURL)")!
+        return URL(string: "\(baseURL)\(path)")!
     }
 
     var baseURL: String {
@@ -41,7 +41,7 @@ extension RequestBuilder {
             items.append(URLQueryItem(name: key, value: "\(value)"))
         }
         myURL?.queryItems = items
-        var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
+        var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: APIConstants.timeout)
         request.httpMethod = method.rawValue
         return request
     }
