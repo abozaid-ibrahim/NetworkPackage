@@ -12,8 +12,9 @@ public protocol ApiClient {
 
 public final class HTTPClient: ApiClient {
     public init() {
-        //public intializer
+        // public intializer
     }
+
     public func getData(of request: RequestBuilder, completionHandler: @escaping (Result<Data, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: request.task) { data, response, error in
             log(.info, request.description)
@@ -37,6 +38,22 @@ public final class HTTPClient: ApiClient {
             }
         }
         task.resume()
+    }
+
+    public func getModel<T: Decodable>(of request: RequestBuilder, completionHandler: @escaping (Result<T, Error>) -> Void) {
+        getData(of: request) { res in
+            switch res {
+            case let .success(data):
+                do {
+                    completionHandler(.success(try JsonDecoder().docode(from: data)))
+                } catch  {
+                    completionHandler(.failure(error))
+                }
+
+            case let .failure(err):
+                completionHandler(.failure(err))
+            }
+        }
     }
 }
 
