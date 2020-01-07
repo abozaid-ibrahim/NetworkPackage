@@ -14,7 +14,6 @@ public protocol RequestBuilder {
     var method: HttpMethod { get }
     var path: String { get }
     var parameters: [String: Any] { get }
-    var task: URLRequest? { get }
 }
 
 public enum HttpMethod: String {
