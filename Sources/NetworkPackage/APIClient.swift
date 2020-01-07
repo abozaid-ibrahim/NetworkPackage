@@ -11,6 +11,9 @@ public protocol ApiClient {
 }
 
 public final class HTTPClient: ApiClient {
+    public init() {
+        //public intializer
+    }
     public func getData(of request: RequestBuilder, completionHandler: @escaping (Result<Data, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: request.task) { data, response, error in
             log(.info, request.description)
