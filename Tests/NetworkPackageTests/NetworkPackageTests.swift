@@ -1,12 +1,20 @@
-import XCTest
 @testable import NetworkPackage
+import XCTest
+//
+// fileprivate enum Endpoint:RequestBuilder{
+//    case login
+//
+// }
 
 final class NetworkPackageTests: XCTestCase {
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(NetworkPackage().text, "Hello, World!")
+        let result: Result<BasicRespone, Error> = HTTPClient().getModel(of: XEndpoint.login)
+        switch result {
+        case let .success(response):
+            print(response)
+        case let .failure(err):
+            print(err)
+        }
     }
 
     static var allTests = [

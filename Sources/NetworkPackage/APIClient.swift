@@ -40,21 +40,7 @@ public final class HTTPClient: ApiClient {
         task.resume()
     }
 
-    public func getModel<T: Decodable>(of request: RequestBuilder, completionHandler: @escaping (Result<T, Error>) -> Void) {
-        getData(of: request) { res in
-            switch res {
-            case let .success(data):
-                do {
-                    completionHandler(.success(try JsonDecoder().docode(from: data)))
-                } catch  {
-                    completionHandler(.failure(error))
-                }
-
-            case let .failure(err):
-                completionHandler(.failure(err))
-            }
-        }
-    }
+  
 }
 
 extension Optional where Wrapped == Data {

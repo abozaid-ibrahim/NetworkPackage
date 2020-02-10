@@ -14,6 +14,7 @@ public protocol RequestBuilder {
     var method: HttpMethod { get }
     var path: String { get }
     var parameters: [String: Any] { get }
+    var headers: [String: String] { get }
 }
 
 public enum HttpMethod: String {
@@ -42,6 +43,9 @@ extension RequestBuilder {
         myURL?.queryItems = items
         var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: APIConstants.timeout)
         request.httpMethod = method.rawValue
+        request.allHTTPHeaderFields = request.allHTTPHeaderFields?.merging(headers, uniquingKeysWith: { (_, newK) -> String in
+            newK
+        })
         return request
     }
 }
