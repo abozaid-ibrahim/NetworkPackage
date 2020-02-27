@@ -23,7 +23,7 @@ public enum HttpMethod: String {
 
 extension RequestBuilder {
     var description: String {
-        return "\(endpoint), \(parameters)"
+        return "\(endpoint), params: \(parameters), headers: \(headers)"
     }
 
     var endpoint: URL {
