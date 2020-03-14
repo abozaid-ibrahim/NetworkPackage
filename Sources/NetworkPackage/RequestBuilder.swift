@@ -18,7 +18,7 @@ public protocol RequestBuilder {
 }
 
 public enum HttpMethod: String {
-    case get, post
+    case get, post,PUT,DELETE,PATCH
 }
 
 extension RequestBuilder {
