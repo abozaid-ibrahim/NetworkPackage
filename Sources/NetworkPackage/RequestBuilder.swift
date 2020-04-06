@@ -43,8 +43,14 @@ extension RequestBuilder {
         myURL?.queryItems = items
         var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: APIConstants.timeout)
         request.httpMethod = method.rawValue
-         let jsonData = try? JSONSerialization.data(withJSONObject: bodyParamters)
-        request.httpBody = jsonData
+        switch method {
+        case .get:
+            break
+        default:
+            let jsonData = try? JSONSerialization.data(withJSONObject: bodyParamters)
+            request.httpBody = jsonData
+        }
+
         request.allHTTPHeaderFields = request.allHTTPHeaderFields?.merging(headers, uniquingKeysWith: { (_, newK) -> String in
             newK
         })
