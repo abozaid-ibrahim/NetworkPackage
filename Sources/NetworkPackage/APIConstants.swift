@@ -9,5 +9,5 @@
 import Foundation
 open class APIConstants {
     static let baseURL = "https://www.flickr.com/services/rest/"
-    static let timeout: TimeInterval = 100
+    static let timeout: TimeInterval = 300
 }
