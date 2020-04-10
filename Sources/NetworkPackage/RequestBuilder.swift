@@ -50,7 +50,6 @@ extension RequestBuilder {
             let jsonData = try? JSONSerialization.data(withJSONObject: bodyParamters)
             request.httpBody = jsonData
         }
-
         request.allHTTPHeaderFields = request.allHTTPHeaderFields?.merging(headers, uniquingKeysWith: { (_, newK) -> String in
             newK
         })
