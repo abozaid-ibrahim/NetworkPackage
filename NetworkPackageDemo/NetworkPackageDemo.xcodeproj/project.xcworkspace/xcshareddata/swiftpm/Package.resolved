@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "NetworkPackage",
+        "repositoryURL": "/Users/abozaid.hamed/workspace/NetworkPackage",
+        "state": {
+          "branch": null,
+          "revision": "e721acf087b0d417783231c94f8ce68342a25db7",
+          "version": "0.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
