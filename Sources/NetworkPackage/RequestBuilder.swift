@@ -40,7 +40,6 @@ extension RequestBuilder {
             items.append(URLQueryItem(name: key, value: "\(value)"))
         }
         var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: APIConstants.timeout)
-        request.httpMethod = method.rawValue
         switch method {
         case .get:
             myURL?.queryItems = items
@@ -49,6 +48,7 @@ extension RequestBuilder {
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
             request.httpBody = jsonData
         }
+        request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = request.allHTTPHeaderFields?.merging(headers, uniquingKeysWith: { (_, newK) -> String in
             newK
         })
