@@ -11,6 +11,12 @@ enum XEndpoint {
 }
 
 extension XEndpoint: RequestBuilder {
+  
+
+    var bodyParamters: [String : Any] {
+        return [:]
+    }
+
     var headers: [String : String] {
         return [:] 
     }

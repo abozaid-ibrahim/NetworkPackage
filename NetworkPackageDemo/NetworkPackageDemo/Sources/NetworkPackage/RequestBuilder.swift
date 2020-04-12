@@ -10,7 +10,6 @@ import Foundation
 
 public protocol RequestBuilder {
     var baseURL: String { get }
-
     var method: HttpMethod { get }
     var path: String { get }
     var parameters: [String: Any] { get }
@@ -40,8 +39,15 @@ extension RequestBuilder {
         for (key, value) in parameters {
             items.append(URLQueryItem(name: key, value: "\(value)"))
         }
-        myURL?.queryItems = items
         var request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: APIConstants.timeout)
+        switch method {
+        case .get:
+            myURL?.queryItems = items
+            request = URLRequest(url: myURL!.url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: APIConstants.timeout)
+        default:
+            let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+            request.httpBody = jsonData
+        }
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = request.allHTTPHeaderFields?.merging(headers, uniquingKeysWith: { (_, newK) -> String in
             newK
